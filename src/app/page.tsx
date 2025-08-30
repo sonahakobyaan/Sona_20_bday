@@ -1,7 +1,8 @@
 import { Button } from 'antd';
+import BirthdayCountdown from './components/countdown';
 
 export default function Home() {
   return (
-     <Button type="primary">Button</Button>
+     <BirthdayCountdown />
   );
 }
