@@ -1,8 +1,8 @@
-import { Button } from 'antd';
 import BirthdayCountdown from './components/countdown';
+import CardComponent from './components/card';
 
 export default function Home() {
   return (
-     <BirthdayCountdown />
+     <CardComponent />
   );
 }
