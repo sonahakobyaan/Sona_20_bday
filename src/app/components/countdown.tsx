@@ -20,7 +20,7 @@ export default function BirthdayCountdown() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center font-serif bg-[var(--primary-purple)]">
+    <div className="flex flex-col items-center justify-center">
       {target > 0 && (
         <Timer
           type="countdown"

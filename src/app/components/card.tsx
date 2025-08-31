@@ -4,21 +4,28 @@ import Image from "next/image";
 import { Card } from "antd";
 const { Meta } = Card;
 
-export default function CardComponent() {
+interface CardComponentProps {
+  imageSrc: string;
+  title: string;
+  description: string;
+}
+
+export default function CardComponent({
+  imageSrc,
+  title,
+  description,
+}: CardComponentProps) {
   return (
     <Card
       hoverable
-      style={{ width: 240 }}
-      cover={
-        <Image
-        width={20}
-        height={20}
-          alt="example"
-          src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-        />
-      }
+      style={{
+        width: 220,
+        background: "linear-gradient(to bottom, white, var(--primary-purple))",
+        border: "2px solid var(--primary-purple)"
+      }}
+      cover={<Image alt={title} src={imageSrc} />}
     >
-      <Meta title="Europe Street beat" description="www.instagram.com" />
+      <Meta title={title} description={description} />
     </Card>
   );
 }

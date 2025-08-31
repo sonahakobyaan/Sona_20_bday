@@ -1,8 +1,7 @@
-import BirthdayCountdown from './components/countdown';
-import CardComponent from './components/card';
+import FirstPage from "./sections/firstPage";
 
 export default function Home() {
   return (
-     <CardComponent />
+     <FirstPage />
   );
 }

@@ -6,14 +6,6 @@
   --primary-purple: #8f6da1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary-purple: #8f6da1;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
