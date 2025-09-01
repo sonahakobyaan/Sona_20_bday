@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Merriweather } from 'next/font/google';
+import { Merriweather } from "next/font/google";
 import "./globals.css";
 
 const merriweather = Merriweather({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {

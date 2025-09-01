@@ -11,14 +11,14 @@ body {
   color: var(--foreground);
 }
 
-body, 
-.ant-btn, 
-.ant-typography, 
-.ant-input, 
-.ant-select, 
-.ant-menu, 
-.ant-card, 
-.ant-modal, 
+body,
+.ant-btn,
+.ant-typography,
+.ant-input,
+.ant-select,
+.ant-menu,
+.ant-card,
+.ant-modal,
 .ant-table {
-  font-family: 'Merriweather', serif !important;
+  font-family: "Merriweather", serif !important;
 }

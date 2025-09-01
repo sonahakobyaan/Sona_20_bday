@@ -7,16 +7,14 @@ import {
   Maria,
   Nune,
   Tikush,
-  Avo,
   Mom,
-  Meri
+  Meri,
 } from "@/app/assets/people";
 import BirthdayCountdown from "../components/countdown";
 
 const people = [
   { image: Mom, title: "Kristine", description: "Mother" },
   { image: Tikush, title: "Tigranuhi", description: "Aunt" },
-  { image: Avo, title: "Avetik", description: "Boyfriend" },
   { image: Meri, title: "Mery", description: "Friend" },
   { image: Nune, title: "Nune", description: "Friend" },
   { image: Bella, title: "Bella", description: "Friend" },
@@ -26,24 +24,27 @@ const people = [
 
 export default function FirstPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-200 via-purple-100 to-white flex flex-col items-center py-12 px-4">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--primary-purple)] mb-4 text-center drop-shadow-lg">
+    <div className="min-h-screen bg-gradient-to-b from-purple-200 via-purple-100 to-white flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+      {/* Title */}
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[var(--primary-purple)] mb-4 text-center drop-shadow-lg">
         {`Sona's 20th Birthday Celebration`}
       </h1>
 
       {/* Countdown */}
-      <div className="mb-8">
+      <div className="mb-8 w-full flex justify-center">
         <BirthdayCountdown />
       </div>
 
       {/* Subtitle */}
-      <h2 className="text-3xl font-semibold text-[var(--primary-purple)] mb-2">Who are you?</h2>
-      <p className="text-lg text-[var(--primary-purple)] mb-8 text-center max-w-md">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-[var(--primary-purple)] mb-2 text-center">
+        Who are you?
+      </h2>
+      <p className="text-base sm:text-lg text-[var(--primary-purple)] mb-8 text-center max-w-md">
         Select your name to view your personalized invitation
       </p>
 
       {/* People Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl">
         {people.map((person, index) => (
           <CardComponent
             key={index}

@@ -21,7 +21,9 @@ export default function CardComponent({
       style={{
         width: 220,
         background: "linear-gradient(to bottom, white, var(--primary-purple))",
-        border: "2px solid var(--primary-purple)"
+        border: "2px solid var(--primary-purple)",
+        justifySelf: "center",
+        alignSelf: "center",
       }}
       cover={<Image alt={title} src={imageSrc} />}
     >
