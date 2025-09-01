@@ -11,9 +11,10 @@ import {
   Mom,
   Meri,
 } from "@/app/assets/people";
+import Noma from "@/app/assets/noma.jpeg";
 import BirthdayCountdown from "../components/countdown";
 import { motion, AnimatePresence } from "framer-motion";
-import { div } from "framer-motion/client";
+import Image from "next/image";
 
 const people = [
   { image: Mom, title: "Kristine", description: "Mother" },
@@ -76,49 +77,64 @@ export default function FirstPage() {
 
       <AnimatePresence>
         {selectedPerson && (
-          <div className="bg-white rounded-2xl">
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <motion.div
-              className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              layoutId={selectedPerson.title}
+              className="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md max-h-[90vh] flex flex-col"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <motion.div
-                layoutId={selectedPerson.title}
-                className="bg-gradient-to-b from-[var(--primary-purple)]/60 to-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
+              <div className="bg-gradient-to-b from-[var(--primary-purple)]/60 to-white rounded-2xl w-full h-full overflow-y-auto no-scrollbar">
                 <div className="p-6 space-y-4">
-                  <p className="text-gray-700">
-                    Dear {selectedPerson.title},<br />
-                    <br />
-                    You are invited to participate in my birthday party at the
-                    place <strong>Noma Rooftop</strong> at <strong>7 PM</strong>{" "}
-                    on <strong>September 22</strong>.<br />
-                    <br />I will ask you to wear a <strong>
-                      white outfit
-                    </strong>{" "}
-                    because it is my dress code. Also, please bring{" "}
-                    <strong>comfortable shoes</strong> because we will dance of
-                    course!
-                    <br />
-                    <br />
-                    Please be on time.
-                    <br />
-                    <br />
-                    Make a lot of videos and shoot everything!
-                    <br />
-                    <br />
-                    To accept your invitation, please write your iPhone’s email.
-                    I need it to create a shared album with all my friends so
-                    they can share their videos.
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)] text-start drop-shadow-lg">
+                    Dear {selectedPerson.title} jan,
+                  </p>
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
+                  You’re invited to my birthday party at Noma!
+                  </p>
+
+                  <Image src={Noma} alt="Noma" />
+                  <motion.a
+                    href="https://yandex.com/maps/-/CLEWAGj7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Map
+                  </motion.a>
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">Time: 7 PM</p>
+                  <img
+                    src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnA3aGwwYm8zdG5taDE3YzM3MXd3cDU5dmtpYWl0emY3dzlwbGl3biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SAnRhjE8NvDy0VDGpR/giphy.gif"
+                    alt="Funny gif"
+                  />
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
+                  Dress code: <span className="underline font-bold">all white</span> with a touch of purple. Bring comfy shoes — we’ll dance all night!                  </p>
+                  <img
+                    src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHd6YTJrNmRhN3h4aTczd3V1ajU4bWRvcnN3Zmt2cGozZnpsZmxxeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/r3OnH3h0A3pxFiQUOI/giphy.gif"
+                    alt="Funny gif"
+                  />
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">Don’t forget to capture every moment — make lots of videos and photos!</p>
+                  <img
+                    src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjMyb3A1ZmJrN3IzbGI0NnRqbjRha3Jkb2RlendyaXg5MjU0ZnU4bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3mZp1EDTPwLgsXyo/giphy.gif"
+                    alt="Funny gif"
+                  />
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
+                  To accept, please enter your iPhone email below.
                   </p>
 
                   <input
                     type="email"
                     placeholder="Your iPhone email"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[var(--primary-purple)]"
                   />
+
+                  <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]"> I’ll create a shared album so everyone can share their videos.</p>
 
                   <div className="flex justify-between mt-4 relative">
                     <motion.button
@@ -135,17 +151,17 @@ export default function FirstPage() {
                       animate={{ x: declinePos.x, y: declinePos.y }}
                       transition={{
                         type: "spring",
-                        stiffness: 500,
-                        damping: 20,
+                        stiffness: 1000000000000000,
+                        damping: 20000,
                       }}
                     >
                       Decline
                     </motion.button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

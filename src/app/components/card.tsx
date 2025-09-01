@@ -7,12 +7,12 @@ import { motion } from "framer-motion";
 const { Meta } = Card;
 
 interface CardComponentProps {
-  imageSrc: any;
+  imageSrc: string;
   title: string;
   description: string;
   onClick?: () => void;
-  layoutId?: string;   // ✅ add this
-  disabled?: boolean;  // ✅ add this
+  layoutId?: string;
+  disabled?: boolean; 
 }
 
 export default function CardComponent({
