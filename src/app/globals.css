@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --primary-white: #ffffff;
   --foreground: #171717;
   --primary-purple: #8f6da1;
 }

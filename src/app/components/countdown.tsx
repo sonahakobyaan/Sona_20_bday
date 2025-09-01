@@ -13,7 +13,7 @@ export default function BirthdayCountdown() {
   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date();
-      let birthday = new Date(now.getFullYear(), 8, 22); // Sept 22
+      let birthday = new Date(now.getFullYear(), 8, 22);
 
       if (now > birthday) {
         birthday = new Date(now.getFullYear() + 1, 8, 22);
@@ -36,7 +36,7 @@ export default function BirthdayCountdown() {
   }, []);
 
   return (
-    <div className="w-full max-w-lg p-6 bg-gradient-to-b from-white-200 via-purple-300 to-[var(--primary-purple)] rounded-2xl shadow-lg text-white text-center">
+    <div className="w-full max-w-lg p-6  to-[var(--primary-purple)] shadow-md text-[var(--primary-purple)] text-center">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 drop-shadow-lg">
         🎂 Countdown to the Party 🎉
       </h2>
