@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardComponent from "../components/card";
 import {
   Bella,
@@ -41,6 +41,18 @@ export default function FirstPage() {
       localStorage.setItem("selectedPerson", JSON.stringify(person));
     }
   };
+  useEffect(() => {
+  async function fetchData() {
+    try {
+      const res = await fetch('/api/getResponses');
+      const json = await res.json();
+      console.log('Sheet data:', json);
+    } catch (err) {
+      console.error('Error fetching sheet data:', err);
+    }
+  }
+  fetchData();
+}, []);
 
   const moveDecline = () => {
     const maxX = 200;
