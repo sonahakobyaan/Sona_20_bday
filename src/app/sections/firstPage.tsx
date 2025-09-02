@@ -15,9 +15,11 @@ import Noma from "@/app/assets/noma.jpeg";
 import BirthdayCountdown from "../components/countdown";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Form, Input, Button } from "antd";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
-const people = [
+const allPeople = [
   { image: Mom, title: "Kristine", description: "Mother" },
   { image: Tikush, title: "Tigranuhi", description: "Aunt" },
   { image: Meri, title: "Mery", description: "Friend" },
@@ -28,31 +30,49 @@ const people = [
 ];
 
 export default function FirstPage() {
+  const [visiblePeople, setVisiblePeople] = useState<typeof allPeople>([]);
   const [selectedPerson, setSelectedPerson] = useState<
-    (typeof people)[0] | null
+    (typeof visiblePeople)[0] | null
   >(null);
   const [declinePos, setDeclinePos] = useState({ x: 0, y: 0 });
   const [clickedMap, setClickedMap] = useState(false);
   const [addedToCalendar, setAddedToCalendar] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handleSelect = (person: (typeof people)[0]) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/getResponses");
+        const json = await res.json();
+        console.log("Sheet data:", json);
+
+        let respondedNames: string[] = [];
+        if (json.success && Array.isArray(json.data)) {
+          respondedNames = json.data.slice(1).map((row: any[]) => row[1]);
+        }
+
+        const filtered = allPeople.filter(
+          (person) => !respondedNames.includes(person.title)
+        );
+        setVisiblePeople(filtered);
+      } catch (err) {
+        console.error("Error fetching sheet data:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const handleSelect = (person: (typeof visiblePeople)[0]) => {
     if (!selectedPerson) {
       setSelectedPerson(person);
       localStorage.setItem("selectedPerson", JSON.stringify(person));
     }
   };
-  useEffect(() => {
-  async function fetchData() {
-    try {
-      const res = await fetch('/api/getResponses');
-      const json = await res.json();
-      console.log('Sheet data:', json);
-    } catch (err) {
-      console.error('Error fetching sheet data:', err);
-    }
-  }
-  fetchData();
-}, []);
 
   const moveDecline = () => {
     const maxX = 200;
@@ -76,6 +96,8 @@ export default function FirstPage() {
     }
 
     try {
+      setSubmitting(true); // ✅ start loading
+
       await fetch(
         "https://script.google.com/macros/s/AKfycbw56qMr0sCOVlYyl8UYoKaNnqQ3PBrZuBgaNpc0RF4BnlKwAW8yZqoKQhjy1a058e8-3w/exec",
         {
@@ -89,25 +111,35 @@ export default function FirstPage() {
           }),
         }
       );
-      alert("Your response has been saved! 🎉");
+
+      router.push("/second_page"); // ✅ redirect
     } catch (error) {
       console.error(error);
       alert("Something went wrong, please try again.");
+    } finally {
+      setSubmitting(false); // ✅ stop loading
     }
   };
-
-  const [form] = Form.useForm();
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = async () => {
-    try {
-      const values = await form.validateFields();
-      console.log("Valid email:", values.email);
-      alert("Valid email submitted: " + values.email);
-    } catch (error) {
-      console.log("Validation failed:", error);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-[var(--primary-purple)]/40 via-[var(--primary-purple)]/30 to-[var(--primary-purple)]/20">
+        <Spin
+          indicator={
+            <LoadingOutlined
+              style={{ fontSize: 48, color: "var(--primary-purple)" }}
+              spin
+            />
+          }
+          tip={
+            <span style={{ color: "var(--primary-purple)" }}>
+              Loading your invitation...
+            </span>
+          }
+          size="large"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[var(--primary-purple)]/40 via-[var(--primary-purple)]/30 to-[var(--primary-purple)]/20 flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
@@ -127,18 +159,19 @@ export default function FirstPage() {
         Select your name to view your personalized invitation
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-6xl justify-items-center">
-        {people.map((person, index) => (
-          <CardComponent
-            key={index}
-            imageSrc={person.image}
-            title={person.title}
-            description={person.description}
-            onClick={() => handleSelect(person)}
-            layoutId={person.title}
-            disabled={!!selectedPerson}
-          />
-        ))}
+<div className="flex flex-wrap gap-6 w-full max-w-6xl justify-center">
+        {visiblePeople
+          .filter((person) => person.title !== selectedPerson?.title)
+          .map((person, index) => (
+            <CardComponent
+              key={index}
+              imageSrc={person.image}
+              title={person.title}
+              description={person.description}
+              onClick={() => handleSelect(person)}
+              layoutId={person.title}
+            />
+          ))}
       </div>
 
       <AnimatePresence>
@@ -240,12 +273,20 @@ export default function FirstPage() {
                   </p>
                   <div className="flex justify-between mt-4 relative">
                     <motion.button
-                      className="bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
+                      className="bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer flex items-center justify-center"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleAccept}
+                      disabled={submitting}
                     >
-                      Accept
+                      {submitting ? (
+                        <LoadingOutlined
+                          style={{ fontSize: 20, color: "white" }}
+                          spin
+                        />
+                      ) : (
+                        "Accept"
+                      )}
                     </motion.button>
 
                     <motion.button
