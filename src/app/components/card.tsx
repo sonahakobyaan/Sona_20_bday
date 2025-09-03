@@ -3,6 +3,7 @@
 import { Card } from "antd";
 import { motion } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
+import { CheckCircleOutlined, UserAddOutlined } from '@ant-design/icons';
 
 
 const { Meta } = Card;
@@ -51,13 +52,10 @@ export default function CardComponent({
       >
         <Meta title={title} description={description} />
         {status && (
-        <p
-          className={`mt-2 text-sm font-bold ${
-            status === "COMING" ? "text-green-600" : "text-gray-500"
-          }`}
-        >
-          {status}
-        </p>
+        <p className={`mt-2 text-sm font-bold ${status === "COMING" ? "text-[var(--primary-purple)]" : "text-gray-500"}`}>
+        {status === "COMING" ? <CheckCircleOutlined className="mr-1" /> : <UserAddOutlined className="mr-1" />}
+        {status}
+      </p>
       )}
       </Card>
     </motion.div>
