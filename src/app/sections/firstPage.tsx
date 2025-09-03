@@ -18,6 +18,7 @@ import Image from "next/image";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import validator from "validator";
 
 const allPeople = [
   { image: Mom, title: "Kristine", description: "Mother" },
@@ -39,6 +40,8 @@ export default function FirstPage() {
   const [addedToCalendar, setAddedToCalendar] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -71,6 +74,17 @@ export default function FirstPage() {
     }
     fetchData();
   }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    if (validator.isEmail(value)) {
+      setError("");
+    } else {
+      setError("Please enter a valid email");
+    }
+  };
 
   const handleSelect = (person: (typeof visiblePeople)[0]) => {
     if (!selectedPerson) {
@@ -266,11 +280,16 @@ export default function FirstPage() {
                     To accept, please enter your iPhone email below.
                   </p>
 
-                  <input
-                    type="email"
-                    placeholder="Your iPhone email"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[var(--primary-purple)]"
-                  />
+                  <div className="w-full max-w-md">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={handleChange}
+                      placeholder="Your iPhone email"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[var(--primary-purple)]"
+                    />
+                    {error && <p className="text-red-500 mt-1">{error}</p>}
+                  </div>
 
                   <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
                     I’ll create a shared album so everyone can share their
