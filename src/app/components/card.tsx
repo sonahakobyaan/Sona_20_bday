@@ -1,18 +1,20 @@
 "use client";
 
-import Image from "next/image";
 import { Card } from "antd";
 import { motion } from "framer-motion";
+import Image, { StaticImageData } from "next/image";
+
 
 const { Meta } = Card;
 
 interface CardComponentProps {
-  imageSrc: string;
+  imageSrc: string | StaticImageData;
   title: string;
   description: string;
   onClick?: () => void;
   layoutId?: string;
-  disabled?: boolean; 
+  disabled?: boolean;
+  status?: "COMING" | "INVITED";
 }
 
 export default function CardComponent({
@@ -22,6 +24,7 @@ export default function CardComponent({
   onClick,
   layoutId,
   disabled = false,
+  status,
 }: CardComponentProps) {
   return (
     <motion.div
@@ -47,6 +50,15 @@ export default function CardComponent({
         }
       >
         <Meta title={title} description={description} />
+        {status && (
+        <p
+          className={`mt-2 text-sm font-bold ${
+            status === "COMING" ? "text-green-600" : "text-gray-500"
+          }`}
+        >
+          {status}
+        </p>
+      )}
       </Card>
     </motion.div>
   );

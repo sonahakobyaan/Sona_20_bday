@@ -51,7 +51,12 @@ export default function FirstPage() {
 
         let respondedNames: string[] = [];
         if (json.success && Array.isArray(json.data)) {
-          respondedNames = json.data.slice(1).map((row: any[]) => row[1]);
+          type SheetRow = [string, string, ...unknown[]];
+
+          respondedNames = (json.data as SheetRow[])
+            .slice(1)
+            .map((row) => row[1])
+            .filter(Boolean);
         }
 
         const filtered = allPeople.filter(
@@ -96,7 +101,7 @@ export default function FirstPage() {
     }
 
     try {
-      setSubmitting(true); // ✅ start loading
+      setSubmitting(true);
 
       await fetch(
         "https://script.google.com/macros/s/AKfycbw56qMr0sCOVlYyl8UYoKaNnqQ3PBrZuBgaNpc0RF4BnlKwAW8yZqoKQhjy1a058e8-3w/exec",
@@ -112,12 +117,12 @@ export default function FirstPage() {
         }
       );
 
-      router.push("/second_page"); // ✅ redirect
+      router.push("/second_page");
     } catch (error) {
       console.error(error);
       alert("Something went wrong, please try again.");
     } finally {
-      setSubmitting(false); // ✅ stop loading
+      setSubmitting(false);
     }
   };
   if (loading) {
@@ -159,7 +164,7 @@ export default function FirstPage() {
         Select your name to view your personalized invitation
       </p>
 
-<div className="flex flex-wrap gap-6 w-full max-w-6xl justify-center">
+      <div className="flex flex-wrap gap-6 w-full max-w-6xl justify-center">
         {visiblePeople
           .filter((person) => person.title !== selectedPerson?.title)
           .map((person, index) => (
