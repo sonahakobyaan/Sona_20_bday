@@ -196,15 +196,17 @@ export default function FirstPage() {
       <AnimatePresence>
         {selectedPerson && (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 sm:px-6"
+            className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-2 sm:px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setSelectedPerson(null)} 
           >
             <motion.div
               layoutId={selectedPerson.title}
               className="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md max-h-[90vh] flex flex-col"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="bg-gradient-to-b from-[var(--primary-purple)]/60 to-white rounded-2xl w-full h-full overflow-y-auto no-scrollbar">
                 <div className="p-6 space-y-4">
