@@ -11,14 +11,16 @@ import {
   Tikush,
   Mom,
   Meri,
+  Nelli,
 } from "@/app/assets/people";
-import Noma from "@/app/assets/noma.jpeg";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { motion } from "framer-motion";
 
 const allPeople = [
   { image: Mom, title: "Kristine", description: "Mother" },
   { image: Tikush, title: "Tigranuhi", description: "Aunt" },
+  { image: Nelli, title: "Nelli", description: "Sister" },
   { image: Meri, title: "Mery", description: "Friend" },
   { image: Nune, title: "Nune", description: "Friend" },
   { image: Bella, title: "Bella", description: "Friend" },
@@ -92,6 +94,25 @@ const SecondPage = () => {
 
       <div className="mb-8 w-full flex justify-center">
         <BirthdayCountdown />
+      </div>
+
+      <div>
+        <div className="mb-6">
+          <motion.button
+            className="bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg transition cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() =>
+              window.open(
+                "https://t.me/+0_LutkNkU6Q0ZGQy",
+                "_blank",
+                "noopener,noreferrer"
+              )
+            }
+          >
+            Wish  List
+          </motion.button>
+        </div>
       </div>
 
       <h2 className="text-2xl sm:text-3xl font-semibold text-[var(--primary-purple)] mb-6 text-center">

@@ -10,8 +10,9 @@ import {
   Tikush,
   Mom,
   Meri,
+  Nelli,
 } from "@/app/assets/people";
-import Noma from "@/app/assets/noma.jpeg";
+import Bamboo from "@/app/assets/bamboo.jpeg";
 import BirthdayCountdown from "../components/countdown";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -23,6 +24,7 @@ import validator from "validator";
 const allPeople = [
   { image: Mom, title: "Kristine", description: "Mother" },
   { image: Tikush, title: "Tigranuhi", description: "Aunt" },
+  { image: Nelli, title: "Nelli", description: "Sister" },
   { image: Meri, title: "Mery", description: "Friend" },
   { image: Nune, title: "Nune", description: "Friend" },
   { image: Bella, title: "Bella", description: "Friend" },
@@ -200,7 +202,7 @@ export default function FirstPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedPerson(null)} 
+            onClick={() => setSelectedPerson(null)}
           >
             <motion.div
               layoutId={selectedPerson.title}
@@ -215,40 +217,41 @@ export default function FirstPage() {
                   </p>
 
                   <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
-                    You’re invited to my birthday party at Noma!
+                    You’re invited to my birthday party at Bamboo!
                   </p>
 
-                  <Image src={Noma} alt="Noma" className="rounded-lg" />
+                  <Image src={Bamboo} alt="Bamboo" className="rounded-lg" />
 
                   <div className="flex space-x-2">
-                    <motion.a
-                      href="https://yandex.com/maps/-/CLEWAGj7"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleMapClick}
-                    >
-                      Map
-                    </motion.a>
+                  <motion.a
+  href="https://yandex.com/maps/-/CLQ260I2"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={handleMapClick}
+>
+  Map
+</motion.a>
 
-                    <motion.a
-                      href={`https://www.google.com/calendar/render?action=TEMPLATE&text=Sona's%2020th%20Birthday%20Party
-                      )}&dates=20250922T150000Z/20250922T190000Z&details=Join%20me%20for%20my%2020th%20birthday%20celebration!&location=Noma`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={handleCalendarClick}
-                    >
-                      Add to Calendar
-                    </motion.a>
+<motion.a
+  href={`https://www.google.com/calendar/render?action=TEMPLATE&text=Sona's%2020th%20Birthday%20Party&dates=20250922T143000Z/20250922T193000Z&details=Join%20me%20for%20my%2020th%20birthday%20celebration!&location=Bamboo%20Rooftop`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block bg-[var(--primary-purple)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-purple)]/80 transition cursor-pointer"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={handleCalendarClick}
+>
+  Add to Calendar
+</motion.a>
+
+
                   </div>
 
                   <p className="text-md sm:text-md md:text-xl font-extrabold text-[var(--primary-purple)]">
-                    Time: 7 PM
+                    Time: 6:30 PM
                   </p>
 
                   <img
